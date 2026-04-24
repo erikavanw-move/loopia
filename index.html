@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOOPIA — Calendario de Running Argentina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo">l<span class="logo-ooo">ooo</span>pia</div>
+        <div class="tagline">calendario de running argentina</div>
+      </div>
+      <span class="badge-beta">BETA</span>
+    </div>
+
+    <div class="header-stats">
+      <div class="stat">
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-label">carreras</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-trail">—</div>
+        <div class="stat-label">trail</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">organizadores</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-proxima">—</div>
+        <div class="stat-label">próxima</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TABS CALLE / TRAIL -->
+  <nav class="tabs-bar" id="tabs-tipo">
+    <button class="tab-btn active" data-tipo="todas">Todas</button>
+    <button class="tab-btn trail-tab" data-tipo="trail">Trail / Montaña</button>
+    <button class="tab-btn" data-tipo="calle">Calle</button>
+  </nav>
+
+  <!-- FILTRO DISTANCIAS -->
+  <div class="filters-bar" id="filter-dist">
+    <button class="chip active" data-d="todas">Todas</button>
+    <button class="chip" data-d="3K">3K</button>
+    <button class="chip" data-d="5K">5K</button>
+    <button class="chip" data-d="10K">10K</button>
+    <button class="chip" data-d="15K">15K</button>
+    <button class="chip" data-d="21K">21K</button>
+    <button class="chip" data-d="42K">42K</button>
+    <button class="chip trail-chip" data-d="ultra">Ultra (50K+)</button>
+    <button class="chip trail-chip" data-d="100M">100 Millas</button>
+  </div>
+
+  <!-- FILTRO PROVINCIAS -->
+  <div class="filters-bar prov-bar" id="filter-prov">
+    <button class="chip active" data-p="todas">Todo el país</button>
+    <button class="chip" data-p="CABA/GBA">CABA / GBA</button>
+    <button class="chip" data-p="Córdoba">Córdoba</button>
+    <button class="chip" data-p="Rosario">Rosario</button>
+    <button class="chip" data-p="Mendoza">Mendoza</button>
+    <button class="chip" data-p="Patagonia">Patagonia</button>
+    <button class="chip" data-p="Mar del Plata">Mar del Plata</button>
+    <button class="chip" data-p="Jujuy">Jujuy</button>
+    <button class="chip" data-p="San Juan">San Juan</button>
+    <button class="chip" data-p="San Luis">San Luis</button>
+    <button class="chip" data-p="Misiones">Misiones</button>
+    <button class="chip" data-p="Internacional">🌎 Internacional</button>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="results-header">
+    <span class="results-count" id="results-count">cargando...</span>
+  </div>
+
+  <!-- LISTADO DE CARRERAS -->
+  <main class="cards-grid" id="cards-container"></main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

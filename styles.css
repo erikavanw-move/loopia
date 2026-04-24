@@ -1,0 +1,428 @@
+/* ============================================================
+   LOOPIA — styles.css
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg:           #0A0A0A;
+  --color-bg-2:         #111111;
+  --color-bg-3:         #0e0e0e;
+  --color-bg-card:      #ffffff;
+  --color-bg-card-alt:  #f7f7f5;
+  --color-border:       rgba(0,0,0,0.08);
+  --color-border-dark:  rgba(255,255,255,0.08);
+
+  --color-text-primary:   #111111;
+  --color-text-secondary: #888888;
+  --color-text-light:     rgba(255,255,255,0.35);
+
+  --color-accent:       #FF4D1C;
+  --color-trail:        #3B6D11;
+  --color-utmb:         #3333aa;
+  --color-cada:         #7a3800;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --radius-card: 0px;
+  --radius-pill: 20px;
+  --radius-btn:  6px;
+}
+
+html, body {
+  font-family: var(--font-body);
+  background: var(--color-bg-card-alt);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  background: var(--color-bg);
+  padding: 20px 24px 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* Logo */
+.logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.logo-ooo {
+  color: var(--color-accent);
+}
+
+.tagline {
+  font-size: 10px;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 4px;
+}
+
+/* Beta badge */
+.badge-beta {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: rgba(255, 77, 28, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(255, 77, 28, 0.3);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+}
+
+/* Stats row */
+.header-stats {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border-dark);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 3px;
+}
+
+/* ============================================================
+   TABS (Todas / Trail / Calle)
+   ============================================================ */
+.tabs-bar {
+  display: flex;
+  background: var(--color-bg-2);
+  border-bottom: 1px solid var(--color-border-dark);
+}
+
+.tab-btn {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 12px 18px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tab-btn.active {
+  color: #fff;
+  border-bottom-color: var(--color-accent);
+}
+
+.tab-btn.trail-tab.active {
+  border-bottom-color: var(--color-trail);
+}
+
+/* ============================================================
+   FILTER CHIPS
+   ============================================================ */
+.filters-bar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 24px;
+  background: var(--color-bg-2);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.filters-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.prov-bar {
+  background: var(--color-bg-3);
+  border-bottom: 1px solid var(--color-border-dark);
+}
+
+.chip {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  padding: 5px 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.chip:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chip.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  font-weight: 500;
+}
+
+.chip.trail-chip.active {
+  background: var(--color-trail);
+  border-color: var(--color-trail);
+}
+
+/* ============================================================
+   RESULTS HEADER
+   ============================================================ */
+.results-header {
+  padding: 12px 24px 6px;
+  background: var(--color-bg-card-alt);
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.results-count {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* ============================================================
+   RACE CARDS
+   ============================================================ */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-card-alt);
+}
+
+.race-card {
+  background: var(--color-bg-card);
+  border-bottom: 0.5px solid var(--color-border);
+  padding: 15px 24px;
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.1s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.race-card:hover {
+  background: var(--color-bg-card-alt);
+}
+
+/* Date block */
+.date-block {
+  text-align: center;
+  border-radius: 8px;
+  padding: 8px 4px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+
+.date-block.calle  { background: var(--color-accent); }
+.date-block.trail  { background: var(--color-trail); }
+.date-block.utmb   { background: #1a1a2e; border: 1px solid #5555cc; }
+.date-block.cada   { background: var(--color-cada); }
+.date-block.past   { background: #e8e8e8 !important; border: none !important; }
+
+.date-day {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.date-month {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-block.past .date-day,
+.date-block.past .date-month {
+  color: #aaa;
+}
+
+/* Card body */
+.card-body {
+  min-width: 0;
+}
+
+.card-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.card-meta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Distance pills */
+.distances {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.dist-pill {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: #f0f0ee;
+  color: var(--color-text-secondary);
+  border: 0.5px solid #ddd;
+}
+
+.dist-pill.ultra {
+  background: #EAF3DE;
+  color: var(--color-trail);
+  border-color: #C0DD97;
+}
+
+/* Card right column */
+.card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Org badges */
+.org-badge {
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.org-sf     { background: #E6F1FB; color: #185FA5; }
+.org-cdc    { background: #EEEDFE; color: #534AB7; }
+.org-nandu  { background: #FAECE7; color: #993C1D; }
+.org-ilvr   { background: #EAF3DE; color: #3B6D11; }
+.org-utmb   { background: #e8e8ff; color: #3333aa; }
+.org-pr     { background: #0a2a0a; color: #7ec87e; border: 0.5px solid #3B6D11; }
+.org-champa { background: #2a1a00; color: #ffb347; border: 0.5px solid #7a3800; }
+.org-cada   { background: #fff3e8; color: #a84800; }
+.org-mtu    { background: #f0f7ee; color: #2d5a1b; border: 0.5px solid #9dc87e; }
+.org-utacch { background: #1a0a2e; color: #c4a0ff; border: 0.5px solid #6633cc; }
+.org-intl   { background: #e8f4f8; color: #1a6a8a; }
+
+/* Inscribite button */
+.btn-inscribite {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  transition: opacity 0.15s;
+}
+
+.btn-inscribite:hover { opacity: 0.85; }
+
+.btn-calle   { background: var(--color-accent); color: #fff; }
+.btn-trail   { background: var(--color-trail);  color: #fff; }
+.btn-utmb    { background: var(--color-utmb);   color: #fff; }
+.btn-cada    { background: var(--color-cada);   color: #fff; }
+.btn-past    { background: #eee; color: #aaa; border: 0.5px solid #ddd; cursor: default; }
+
+/* ============================================================
+   SECTION DIVIDERS
+   ============================================================ */
+.section-divider {
+  padding: 8px 24px 4px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: #f0f0ee;
+  border-bottom: 0.5px solid var(--color-border);
+  border-top: 0.5px solid var(--color-border);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .header { padding: 16px 16px 0; }
+  .filters-bar { padding: 10px 16px; }
+  .race-card { padding: 13px 16px; grid-template-columns: 46px 1fr auto; gap: 10px; }
+  .logo { font-size: 22px; }
+  .header-stats { gap: 16px; }
+  .stat-num { font-size: 22px; }
+  .results-header { padding: 10px 16px 5px; }
+  .section-divider { padding: 7px 16px 3px; }
+}
