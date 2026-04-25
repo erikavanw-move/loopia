@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loopia — Buscador de Carreras</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #22c55e;
+      --green-dim: #16a34a;
+      --black: #0a0a0a;
+      --gray-1: #f4f4f4;
+      --gray-2: #e5e5e5;
+      --gray-3: #a3a3a3;
+      --text: #111;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fafafa;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    header {
+      border-bottom: 1.5px solid var(--gray-2);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      color: var(--black);
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: var(--green);
+      color: white;
+      padding: 2px 7px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px 120px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span { color: var(--green); }
+
+    .hero p {
+      color: var(--gray-3);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    /* CHAT INPUT */
+    .chat-box {
+      display: flex;
+      gap: 10px;
+      background: white;
+      border: 1.5px solid var(--gray-2);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .chat-box:focus-within {
+      border-color: var(--green);
+    }
+
+    .chat-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .chat-box input::placeholder { color: var(--gray-3); }
+
+    .chat-box button {
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .chat-box button:hover { background: var(--green-dim); }
+    .chat-box button:active { transform: scale(0.97); }
+    .chat-box button:disabled { background: var(--gray-2); color: var(--gray-3); cursor: not-allowed; }
+
+    /* SUGGESTIONS */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .suggestion {
+      background: white;
+      border: 1.5px solid var(--gray-2);
+      border-radius: 99px;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text);
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .suggestion:hover {
+      border-color: var(--green);
+      background: #f0fdf4;
+    }
+
+    /* RESULTS */
+    #results { margin-top: 8px; }
+
+    .results-header {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      margin-bottom: 16px;
+    }
+
+    /* RACE CARD */
+    .race-card {
+      background: white;
+      border: 1.5px solid var(--gray-2);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .race-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 2px 16px rgba(34,197,94,0.08);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .race-date {
+      text-align: center;
+      line-height: 1;
+    }
+
+    .race-date .day {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .race-date .month {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--gray-3);
+      text-transform: uppercase;
+    }
+
+    .race-info { min-width: 0; }
+
+    .race-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .race-location {
+      font-size: 13px;
+      color: var(--gray-3);
+      margin-bottom: 8px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .pill {
+      background: var(--gray-1);
+      border-radius: 99px;
+      padding: 2px 9px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .pill.trail {
+      background: #f0fdf4;
+      color: var(--green-dim);
+      font-weight: 700;
+    }
+
+    .pill.calle {
+      background: #eff6ff;
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    .race-cta a {
+      display: inline-block;
+      background: var(--black);
+      color: white;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .race-cta a:hover { background: var(--green); }
+
+    /* STATES */
+    .state-box {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray-3);
+    }
+
+    .state-box .icon { font-size: 40px; margin-bottom: 12px; }
+    .state-box p { font-size: 15px; }
+
+    .loading-dots {
+      display: inline-flex;
+      gap: 5px;
+      margin-top: 16px;
+    }
+
+    .loading-dots span {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    .loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 540px) {
+      .race-card { grid-template-columns: 50px 1fr; }
+      .race-cta { grid-column: 1 / -1; }
+      .race-cta a { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="logo">loopia</span>
+  <span class="badge">BETA</span>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Encontrá tu próxima<br><span>carrera</span></h1>
+    <p>Describí lo que buscás en lenguaje natural</p>
+  </div>
+
+  <div class="chat-box">
+    <input
+      type="text"
+      id="query"
+      placeholder="ej: una trail corta en Patagonia, o 10K en Buenos Aires en junio..."
+      autocomplete="off"
+    />
+    <button id="searchBtn" onclick="search()">Buscar</button>
+  </div>
+
+  <div class="suggestions">
+    <button class="suggestion" onclick="fillAndSearch('trail en Patagonia')">🏔️ Trail en Patagonia</button>
+    <button class="suggestion" onclick="fillAndSearch('carreras en CABA en junio')">📍 CABA en junio</button>
+    <button class="suggestion" onclick="fillAndSearch('21K o media maratón')">🏃 21K / Media maratón</button>
+    <button class="suggestion" onclick="fillAndSearch('ultra trail larga distancia')">⚡ Ultra trail</button>
+    <button class="suggestion" onclick="fillAndSearch('carrera corta para principiantes')">🌱 Para principiantes</button>
+  </div>
+
+  <div id="results"></div>
+</main>
+
+<script>
+const RACES = [
+  { n:"Maratana 2026", d:"2026-04-26", dy:"26", mo:"ABR", city:"Puerto Madero, CABA", prov:"CABA/GBA", dist:["15K","10K","3K"], org:"cdc", tipo:"calle", link:"https://www.clubdecorredores.com/carreras/519/Maratana/" },
+  { n:"Champa Ultra Race", d:"2026-05-01", dy:"01", mo:"MAY", city:"San Javier, Córdoba", prov:"Córdoba", dist:["60K","42K","30K","24K","16K","10K"], org:"champa", tipo:"trail", link:"https://champaultrarace.com.ar/" },
+  { n:"Maratón de Mendoza", d:"2026-05-03", dy:"03", mo:"MAY", city:"Mendoza", prov:"Mendoza", dist:["42K","21K"], org:"sf", tipo:"calle", link:"https://sportsfacilities.com.ar/carrera/maraton-de-mendoza-2026/" },
+  { n:"Raid Andes", d:"2026-05-09", dy:"09", mo:"MAY", city:"Jujuy", prov:"Jujuy", dist:["100K+"], org:"cdc", tipo:"trail", link:"https://raidandes.com/" },
+  { n:"UE BsAs Run", d:"2026-05-10", dy:"10", mo:"MAY", city:"Palermo, CABA", prov:"CABA/GBA", dist:["15K","7K","3K"], org:"ilvr", tipo:"calle", link:"https://iloverunn.framer.ai/" },
+  { n:"21K Rosario 2026", d:"2026-05-10", dy:"10", mo:"MAY", city:"Rosario", prov:"Rosario", dist:["21K"], org:"sf", tipo:"calle", link:"https://sportsfacilities.com.ar/carrera/21k-rosario-2026/" },
+  { n:"NB 25K Buenos Aires", d:"2026-05-17", dy:"17", mo:"MAY", city:"Palermo, CABA", prov:"CABA/GBA", dist:["25K"], org:"sf", tipo:"calle", link:"https://sportsfacilities.com.ar/carrera/nb-25k-buenos-aires-2026/" },
+  { n:"Fiestas Mayas Saucony", d:"2026-05-25", dy:"25", mo:"MAY", city:"CABA", prov:"CABA/GBA", dist:["10K","3K"], org:"cdc", tipo:"calle", link:"https://fiestasmayas.com.ar/" },
+  { n:"Merlo Trail Ultra", d:"2026-06-05", dy:"05", mo:"JUN", city:"Merlo, San Luis", prov:"San Luis", dist:["56K","37K","22K","11K","6K"], org:"mtu", tipo:"trail", link:"https://merlotrailultra.com.ar/" },
+  { n:"15K Adizero del Sur", d:"2026-06-07", dy:"07", mo:"JUN", city:"Autódromo, CABA", prov:"CABA/GBA", dist:["15K"], org:"nandu", tipo:"calle", link:"https://carrerasymaratonesnandu.com.ar/15k-autodromo/" },
+  { n:"21K La Plata 2026", d:"2026-06-14", dy:"14", mo:"JUN", city:"La Plata", prov:"CABA/GBA", dist:["21K"], org:"sf", tipo:"calle", link:"https://sportsfacilities.com.ar/carrera/21k-la-plata-26/" },
+  { n:"21K Olympic Day", d:"2026-06-21", dy:"21", mo:"JUN", city:"Parque Roca, CABA", prov:"CABA/GBA", dist:["21K","10K"], org:"ilvr", tipo:"calle", link:"http://www.21k.ar" },
+  { n:"Circ. Estaciones Invierno", d:"2026-06-28", dy:"28", mo:"JUN", city:"Vicente López", prov:"CABA/GBA", dist:["10K","5K"], org:"cdc", tipo:"calle", link:"https://www.clubdecorredores.com/carreras/520/" },
+  { n:"15K Open Sports Ciudad", d:"2026-06-28", dy:"28", mo:"JUN", city:"Mar del Plata", prov:"Mar del Plata", dist:["15K","10K","5K"], org:"sf", tipo:"calle", link:"https://superate.com.ar/" },
+  { n:"Media Maratón Colonia", d:"2026-06-28", dy:"28", mo:"JUN", city:"Colonia del Sacramento, Uruguay", prov:"Internacional", dist:["21K","10K","5K"], org:"intl", tipo:"calle", link:"https://redtickets.uy/evento/Media-Maraton-Internacional-Colonia-del-Sacramento-21K/26331/" },
+  { n:"EcoTrail Argentina", d:"2026-07-05", dy:"05", mo:"JUL", city:"GBA", prov:"CABA/GBA", dist:["50K","25K"], org:"ilvr", tipo:"trail", link:"https://iloverunn.framer.ai/" },
+  { n:"Nono Trail Run", d:"2026-07-09", dy:"09", mo:"JUL", city:"Nono, Córdoba", prov:"Córdoba", dist:["42K"], org:"cada", tipo:"trail", link:"https://cada-atletismo.org/circuito-nacional-de-trail-y-montana-2026/" },
+  { n:"Sierra Embrujada Trail", d:"2026-08-15", dy:"15", mo:"AGO", city:"Traslasierra, Córdoba", prov:"Córdoba", dist:["21K"], org:"cada", tipo:"trail", link:"https://cada-atletismo.org/circuito-nacional-de-trail-y-montana-2026/" },
+  { n:"CUT 50 Ultra Trail", d:"2026-08-16", dy:"16", mo:"AGO", city:"Cosquín, Córdoba", prov:"Córdoba", dist:["50K","25K"], org:"ilvr", tipo:"trail", link:"https://iloverunn.framer.ai/" },
+  { n:"Medio Maratón Bs As", d:"2026-08-23", dy:"23", mo:"AGO", city:"Buenos Aires", prov:"CABA/GBA", dist:["21K"], org:"nandu", tipo:"calle", link:"https://www.maratondebuenosaires.com/" },
+  { n:"Zenith Trail", d:"2026-09-11", dy:"11", mo:"SEP", city:"A confirmar", prov:"—", dist:["21K"], org:"cada", tipo:"trail", link:"https://cada-atletismo.org/circuito-nacional-de-trail-y-montana-2026/" },
+  { n:"Tierra de Gigantes", d:"2026-09-15", dy:"—", mo:"SEP", city:"San Juan", prov:"San Juan", dist:["42K"], org:"cada", tipo:"trail", link:"https://cada-atletismo.org/circuito-nacional-de-trail-y-montana-2026/" },
+  { n:"Maratón de Buenos Aires", d:"2026-09-20", dy:"20", mo:"SEP", city:"Buenos Aires", prov:"CABA/GBA", dist:["42K"], org:"nandu", tipo:"calle", link:"https://www.maratondebuenosaires.com/" },
+  { n:"UTACCH Ultra Trail 15 años", d:"2026-10-09", dy:"09", mo:"OCT", city:"Villa Yacanto, Córdoba", prov:"Córdoba", dist:["100MI","100K","75K","55K","38K","26K","15K"], org:"utacch", tipo:"trail", link:"https://www.utacchultratrail.com/" },
+  { n:"Media Maratón Triple Frontera", d:"2026-10-11", dy:"11", mo:"OCT", city:"Puerto Iguazú / Foz / Cdad. del Este", prov:"Misiones", dist:["21K","10.5K"], org:"intl", tipo:"calle", link:"https://www.instagram.com/mediadelatriplefrontera/" },
+  { n:"10K San Isidro PUMA", d:"2026-10-25", dy:"25", mo:"OCT", city:"San Isidro", prov:"CABA/GBA", dist:["10K"], org:"nandu", tipo:"calle", link:"https://carrerasymaratonesnandu.com.ar/10k-sanisidro" },
+  { n:"McDonald's Run", d:"2026-10-25", dy:"25", mo:"OCT", city:"Vicente López", prov:"CABA/GBA", dist:["10K","5K"], org:"cdc", tipo:"calle", link:"https://www.clubdecorredores.com/carreras/521/" },
+  { n:"K42 Argentina", d:"2026-11-07", dy:"07", mo:"NOV", city:"Villa La Angostura", prov:"Patagonia", dist:["42K","21K","10K"], org:"cada", tipo:"trail", link:"https://cada-atletismo.org/circuito-nacional-de-trail-y-montana-2026/" },
+  { n:"Bariloche by UTMB", d:"2026-11-18", dy:"18", mo:"NOV", city:"Bariloche", prov:"Patagonia", dist:["100K+","50K","20K"], org:"utmb", tipo:"trail", link:"https://bariloche.utmb.world" },
+  { n:"adidas 10K Night Run", d:"2026-11-28", dy:"28", mo:"NOV", city:"Puerto Madero", prov:"CABA/GBA", dist:["10K"], org:"nandu", tipo:"calle", link:"https://carrerasymaratonesnandu.com.ar/10k-puerto-madero/" },
+  { n:"Patagonia Run 2027 ★", d:"2027-04-07", dy:"07", mo:"ABR", city:"San Martín de los Andes", prov:"Patagonia", dist:["100MI","110K","70K","42K","21K","10K"], org:"pr", tipo:"trail", link:"https://patagoniarun.com/" },
+];
+
+const SYSTEM_PROMPT = `Sos el asistente de Loopia, el calendario de carreras de running y trail running de Argentina.
+
+Tu única tarea es recibir lo que busca el corredor y devolver SOLO un array JSON con las carreras del catálogo que mejor matchean. No agregues ningún texto, explicación, ni backticks. Solo el JSON.
+
+Si el usuario pide carreras cortas o para principiantes, priorizá distancias de 5K, 10K o 15K.
+Si pide ultra o larga distancia, priorizá 50K o más.
+Si no hay matches claros, devolvé las 3 carreras más relevantes igual.
+Si el usuario menciona una región o provincia, filtrá por eso.
+
+Catálogo completo:
+${JSON.stringify(RACES)}
+
+Respondé ÚNICAMENTE con un JSON array de objetos del catálogo. Sin texto adicional.`;
+
+async function search() {
+  const query = document.getElementById('query').value.trim();
+  if (!query) return;
+
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const results = document.getElementById('results');
+  results.innerHTML = `
+    <div class="state-box">
+      <div class="icon">🔍</div>
+      <p>Buscando carreras para vos</p>
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: query }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.[0]?.text || '[]';
+    const clean = text.replace(/```json|```/g, '').trim();
+    const races = JSON.parse(clean);
+    renderResults(races, query);
+  } catch (e) {
+    results.innerHTML = `
+      <div class="state-box">
+        <div class="icon">⚠️</div>
+        <p>Algo salió mal. Intentá de nuevo.</p>
+      </div>`;
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Buscar';
+}
+
+function renderResults(races, query) {
+  const results = document.getElementById('results');
+
+  if (!races || races.length === 0) {
+    results.innerHTML = `
+      <div class="state-box">
+        <div class="icon">🤷</div>
+        <p>No encontramos carreras para "<strong>${query}</strong>".<br>Probá con otra búsqueda.</p>
+      </div>`;
+    return;
+  }
+
+  const header = `<div class="results-header">${races.length} carrera${races.length !== 1 ? 's' : ''} encontrada${races.length !== 1 ? 's' : ''}</div>`;
+  const cards = races.map((r, i) => `
+    <div class="race-card" style="animation-delay:${i * 0.06}s">
+      <div class="race-date">
+        <div class="day">${r.dy === '—' ? '?' : r.dy}</div>
+        <div class="month">${r.mo}</div>
+      </div>
+      <div class="race-info">
+        <div class="race-name">${r.n}</div>
+        <div class="race-location">📍 ${r.city}</div>
+        <div class="pills">
+          <span class="pill ${r.tipo}">${r.tipo}</span>
+          ${r.dist.map(d => `<span class="pill">${d}</span>`).join('')}
+        </div>
+      </div>
+      <div class="race-cta">
+        <a href="${r.link}" target="_blank" rel="noopener">Ver carrera →</a>
+      </div>
+    </div>
+  `).join('');
+
+  results.innerHTML = header + cards;
+}
+
+function fillAndSearch(text) {
+  document.getElementById('query').value = text;
+  search();
+}
+
+document.getElementById('query').addEventListener('keydown', e => {
+  if (e.key === 'Enter') search();
+});
+</script>
+</body>
+</html>

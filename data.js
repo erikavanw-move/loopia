@@ -1,5 +1,5 @@
 /* ============================================================
-   LOOOPIA — data.js
+   LOOPIA — data.js
    Todas las carreras. Agregar nuevas acá.
 
    Campos:
