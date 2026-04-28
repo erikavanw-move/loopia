@@ -30,7 +30,7 @@
   --font-display: 'Syne', sans-serif;
   --font-body:    'DM Sans', sans-serif;
 
-  --radius-card: 0px;
+  --radius-card: 12px;
   --radius-pill: 20px;
   --radius-btn:  6px;
 }
@@ -69,6 +69,13 @@ html, body {
 
 .logo-ooo {
   color: var(--color-accent);
+}
+
+.logo-img {
+  height: 150px;
+  width: auto;
+  display: block;
+  background: #0A0A0A;
 }
 
 .tagline {
@@ -222,37 +229,86 @@ html, body {
 }
 
 /* ============================================================
-   RACE CARDS
+   RACE CARDS — grid centrado
    ============================================================ */
 .cards-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
   background: var(--color-bg-card-alt);
 }
 
 .race-card {
   background: var(--color-bg-card);
-  border-bottom: 0.5px solid var(--color-border);
-  padding: 15px 24px;
-  display: grid;
-  grid-template-columns: 54px 1fr auto;
-  gap: 14px;
-  align-items: center;
+  border-radius: var(--radius-card);
+  border: 0.5px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   cursor: pointer;
-  transition: background 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s;
   text-decoration: none;
   color: inherit;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .race-card:hover {
-  background: var(--color-bg-card-alt);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+}
+
+/* ── Imagen ── */
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.race-card:hover .card-img {
+  transform: scale(1.04);
+}
+
+.card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Contenido debajo de la imagen ── */
+.card-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  flex: 1;
 }
 
 /* Date block */
 .date-block {
   text-align: center;
   border-radius: 8px;
-  padding: 8px 4px;
+  padding: 8px 6px;
   min-width: 50px;
   flex-shrink: 0;
 }
@@ -265,7 +321,7 @@ html, body {
 
 .date-day {
   font-family: var(--font-display);
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
   line-height: 1;
@@ -287,6 +343,7 @@ html, body {
 /* Card body */
 .card-body {
   min-width: 0;
+  flex: 1;
 }
 
 .card-name {
@@ -303,7 +360,7 @@ html, body {
 .card-meta {
   font-size: 11px;
   color: var(--color-text-secondary);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -337,7 +394,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 6px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
@@ -392,21 +449,22 @@ html, body {
    SECTION DIVIDERS
    ============================================================ */
 .section-divider {
-  padding: 8px 24px 4px;
+  grid-column: 1 / -1;
+  padding: 8px 4px 4px;
   font-size: 10px;
   font-weight: 500;
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  background: #f0f0ee;
+  background: transparent;
   border-bottom: 0.5px solid var(--color-border);
-  border-top: 0.5px solid var(--color-border);
 }
 
 /* ============================================================
    EMPTY STATE
    ============================================================ */
 .empty-state {
+  grid-column: 1 / -1;
   text-align: center;
   padding: 56px 24px;
   color: var(--color-text-secondary);
@@ -464,13 +522,24 @@ html, body {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (max-width: 640px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .card-img-wrap {
+    height: 200px;
+  }
+}
+
 @media (max-width: 480px) {
   .header { padding: 16px 16px 0; }
   .filters-bar { padding: 10px 16px; }
-  .race-card { padding: 13px 16px; grid-template-columns: 46px 1fr auto; gap: 10px; }
   .logo { font-size: 22px; }
   .header-stats { gap: 16px; }
   .stat-num { font-size: 22px; }
   .results-header { padding: 10px 16px 5px; }
-  .section-divider { padding: 7px 16px 3px; }
+  .section-divider { padding: 7px 4px 3px; }
 }

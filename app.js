@@ -11,7 +11,8 @@ const MILLAS_DIST = ["100MI", "100M"];
 const ULTRA_PILL  = [...ULTRA_DIST, ...MILLAS_DIST];
 
 // ── Fecha de hoy para marcar "pasadas" ────────────────────────
-const TODAY = new Date("2026-04-23");
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
 
 // ── Estado de filtros ─────────────────────────────────────────
 let activeTipo = "todas";
@@ -94,25 +95,45 @@ function buildCardHTML(race) {
   const pills  = race.dist.map(d => `<span class="${pillClass(d)}">${d}</span>`).join("");
   const dayTxt = race.dy === "—" ? "?" : race.dy;
 
+  // Imagen: si tiene img y no está vacía, la mostramos con fallback
+  const imgHTML = race.img
+    ? `<div class="card-img-wrap">
+         <img
+           class="card-img"
+           src="${race.img}"
+           alt="${race.n}"
+           loading="lazy"
+           onerror="this.parentElement.style.display='none'"
+         />
+         ${past ? '<div class="card-img-overlay">Finalizada</div>' : ""}
+       </div>`
+    : "";
+
   return `
-    <div class="race-card">
-      <div class="${dateBlockClass(race)}">
-        <div class="date-day">${dayTxt}</div>
-        <div class="date-month">${race.mo}</div>
+    <div class="race-card${past ? " past-card" : ""}">
+
+      ${imgHTML}
+
+      <div class="card-main">
+        <div class="${dateBlockClass(race)}">
+          <div class="date-day">${dayTxt}</div>
+          <div class="date-month">${race.mo}</div>
+        </div>
+
+        <div class="card-body">
+          <div class="card-name">${race.n}</div>
+          <div class="card-meta">${race.city}</div>
+          <div class="distances">${pills}</div>
+        </div>
+
+        <div class="card-right">
+          <span class="org-badge ${org.badgeClass}">${org.label}</span>
+          <a href="${race.link}" class="${buttonClass(race)}" target="_blank" rel="noopener">
+            ${past ? "Finalizada" : "Inscribite"}
+          </a>
+        </div>
       </div>
 
-      <div class="card-body">
-        <div class="card-name">${race.n}</div>
-        <div class="card-meta">${race.city}</div>
-        <div class="distances">${pills}</div>
-      </div>
-
-      <div class="card-right">
-        <span class="org-badge ${org.badgeClass}">${org.label}</span>
-        <a href="${race.link}" class="${buttonClass(race)}" target="_blank" rel="noopener">
-          ${past ? "Finalizada" : "Inscribite"}
-        </a>
-      </div>
     </div>`;
 }
 
