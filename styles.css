@@ -53,10 +53,10 @@ html, body {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   position: relative;
   margin-bottom: 16px;
-  padding-right: 48px;
+  padding: 16px 0;
 }
 
 /* Logo */
@@ -80,15 +80,15 @@ html, body {
 }
 
 .logo-img {
-  height: 200px;
+  height: 100px;
   width: auto;
   display: block;
   background: #0A0A0A;
 }
 
 .tagline {
-  font-size: 10px;
-  color: var(--color-text-light);
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 1.2px;
   margin-top: 4px;
@@ -99,7 +99,7 @@ html, body {
 .badge-beta {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 16px;
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -116,6 +116,7 @@ html, body {
   gap: 24px;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--color-border-dark);
+  justify-content: center;
 }
 
 .stat-num {
@@ -139,6 +140,7 @@ html, body {
    ============================================================ */
 .tabs-bar {
   display: flex;
+  justify-content: center;
   background: var(--color-bg-2);
   border-bottom: 1px solid var(--color-border-dark);
 }
@@ -175,10 +177,11 @@ html, body {
    ============================================================ */
 .filters-bar {
   display: flex;
+  justify-content: center;
   gap: 6px;
   padding: 10px 24px;
   background: var(--color-bg-2);
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
