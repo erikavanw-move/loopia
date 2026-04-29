@@ -119,6 +119,10 @@ html, body {
   justify-content: center;
 }
 
+.stat {
+  text-align: center;
+}
+
 .stat-num {
   font-family: var(--font-display);
   font-size: 36px;
