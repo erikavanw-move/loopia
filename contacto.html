@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOOPIA — Sumá tu carrera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:       #0A0A0A;
+      --color-bg-2:     #111111;
+      --color-card:     #ffffff;
+      --color-border:   rgba(0,0,0,0.08);
+      --color-accent:   #FF4D1C;
+      --color-trail:    #3B6D11;
+      --color-text:     #111111;
+      --color-muted:    #888888;
+      --font-display:   'Syne', sans-serif;
+      --font-body:      'DM Sans', sans-serif;
+      --radius:         12px;
+    }
+
+    html, body {
+      font-family: var(--font-body);
+      background: #f7f7f5;
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--color-bg);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header a {
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      display: block;
+      background: var(--color-bg);
+    }
+
+    .back-btn {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+
+    .back-btn:hover { color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--color-bg);
+      padding: 40px 24px 48px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: rgba(255,77,28,0.12);
+      border: 1px solid rgba(255,77,28,0.25);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span { color: var(--color-accent); }
+
+    .hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── FORM CONTAINER ── */
+    .form-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .form-card {
+      background: var(--color-card);
+      border-radius: var(--radius);
+      border: 0.5px solid var(--color-border);
+      padding: 36px 32px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── FORM FIELDS ── */
+    .field {
+      margin-bottom: 24px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+
+    .field label .req {
+      color: var(--color-accent);
+      margin-left: 2px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text);
+      background: #fafafa;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--color-accent);
+      background: #fff;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .field .hint {
+      font-size: 11px;
+      color: var(--color-muted);
+      margin-top: 5px;
+    }
+
+    /* ── TIPO TOGGLE ── */
+    .tipo-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tipo-btn {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #e5e5e5;
+      background: #fafafa;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      color: var(--color-muted);
+    }
+
+    .tipo-btn:hover { border-color: #ccc; color: var(--color-text); }
+
+    .tipo-btn.active-calle {
+      background: rgba(255,77,28,0.08);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    .tipo-btn.active-trail {
+      background: rgba(59,109,17,0.08);
+      border-color: var(--color-trail);
+      color: var(--color-trail);
+      font-weight: 600;
+    }
+
+    /* ── DISTANCIAS CHECKBOXES ── */
+    .dist-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dist-check {
+      display: none;
+    }
+
+    .dist-label {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 99px;
+      border: 1.5px solid #e5e5e5;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--color-muted);
+      user-select: none;
+    }
+
+    .dist-check:checked + .dist-label {
+      background: rgba(255,77,28,0.08);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: #f0f0ee;
+      margin: 28px 0;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    /* ── SUBMIT ── */
+    .submit-btn {
+      width: 100%;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      background: var(--color-accent);
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+
+    .submit-btn:hover { opacity: 0.88; }
+    .submit-btn:active { transform: scale(0.98); }
+
+    /* ── SUCCESS STATE ── */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .success-box .icon { font-size: 48px; margin-bottom: 16px; }
+
+    .success-box h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .success-box p {
+      color: var(--color-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-accent);
+      text-decoration: none;
+      border: 1.5px solid var(--color-accent);
+      padding: 10px 24px;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .back-link:hover {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--color-bg);
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .form-card { padding: 24px 20px; }
+      .tipo-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html">
+      <img src="img/logoloopia.png" alt="Loopia" class="logo-img">
+    </a>
+    <a href="index.html" class="back-btn">
+      ← Volver al calendario
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">🏃 Para organizadores</div>
+    <h1>Sumá tu <span>carrera</span><br>al calendario</h1>
+    <p>¿Organizás una carrera y no está en Loopia? Completá el formulario y la revisamos para agregarla.</p>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="form-wrap">
+    <div class="form-card">
+
+      <div id="form-content">
+
+        <p class="section-title">Datos de la carrera</p>
+
+        <form
+          action="https://formspree.io/f/xzdopgrd"
+          method="POST"
+          id="race-form"
+        >
+
+          <!-- Nombre -->
+          <div class="field">
+            <label>Nombre de la carrera <span class="req">*</span></label>
+            <input type="text" name="nombre" placeholder="ej: Maratón de los Andes" required />
+          </div>
+
+          <!-- Fecha -->
+          <div class="field">
+            <label>Fecha <span class="req">*</span></label>
+            <input type="date" name="fecha" required />
+          </div>
+
+          <!-- Ciudad y Provincia -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="field">
+              <label>Ciudad <span class="req">*</span></label>
+              <input type="text" name="ciudad" placeholder="ej: Mendoza" required />
+            </div>
+            <div class="field">
+              <label>Provincia <span class="req">*</span></label>
+              <select name="provincia" required>
+                <option value="" disabled selected>Elegí</option>
+                <option>CABA / GBA</option>
+                <option>Córdoba</option>
+                <option>Rosario</option>
+                <option>Mendoza</option>
+                <option>Patagonia</option>
+                <option>Mar del Plata</option>
+                <option>Jujuy</option>
+                <option>San Juan</option>
+                <option>San Luis</option>
+                <option>Misiones</option>
+                <option>Internacional</option>
+                <option>Otra</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Tipo -->
+          <div class="field">
+            <label>Tipo de carrera <span class="req">*</span></label>
+            <div class="tipo-group">
+              <button type="button" class="tipo-btn" id="btn-calle" onclick="setTipo('calle')">🏙️ Calle</button>
+              <button type="button" class="tipo-btn" id="btn-trail" onclick="setTipo('trail')">🏔️ Trail / Montaña</button>
+            </div>
+            <input type="hidden" name="tipo" id="input-tipo" required />
+          </div>
+
+          <!-- Distancias -->
+          <div class="field">
+            <label>Distancias disponibles <span class="req">*</span></label>
+            <div class="dist-grid">
+              <input class="dist-check" type="checkbox" name="dist" value="3K" id="d3"><label class="dist-label" for="d3">3K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="5K" id="d5"><label class="dist-label" for="d5">5K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="10K" id="d10"><label class="dist-label" for="d10">10K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="15K" id="d15"><label class="dist-label" for="d15">15K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="21K" id="d21"><label class="dist-label" for="d21">21K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="42K" id="d42"><label class="dist-label" for="d42">42K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="50K+" id="d50"><label class="dist-label" for="d50">50K+</label>
+              <input class="dist-check" type="checkbox" name="dist" value="100K+" id="d100"><label class="dist-label" for="d100">100K+</label>
+              <input class="dist-check" type="checkbox" name="dist" value="100MI" id="d100mi"><label class="dist-label" for="d100mi">100 Millas</label>
+            </div>
+          </div>
+
+          <!-- Web oficial -->
+          <div class="field">
+            <label>Web oficial o link de inscripción <span class="req">*</span></label>
+            <input type="url" name="web" placeholder="https://tucarrera.com.ar" required />
+            <div class="hint">Es lo más importante — es el link que verán los corredores.</div>
+          </div>
+
+          <div class="divider"></div>
+          <p class="section-title">Tus datos de contacto</p>
+
+          <!-- Nombre contacto -->
+          <div class="field">
+            <label>Tu nombre</label>
+            <input type="text" name="contacto_nombre" placeholder="ej: María González" />
+          </div>
+
+          <!-- Email -->
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" name="email" placeholder="hola@tucarrera.com" required />
+            <div class="hint">Solo para avisarte cuando la agregamos. No lo compartimos.</div>
+          </div>
+
+          <!-- Notas -->
+          <div class="field">
+            <label>Algo más que quieras contarnos</label>
+            <textarea name="notas" placeholder="Info adicional, ediciones anteriores, redes sociales..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Enviar carrera →</button>
+
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-box" id="success-box">
+        <div class="icon">🎉</div>
+        <h2>¡Gracias!</h2>
+        <p>Recibimos los datos de tu carrera.<br>La revisamos y te avisamos cuando esté en el calendario.</p>
+        <a href="index.html" class="back-link">Ver el calendario</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-copy">© 2026 Loopia · Hecho con ❤️ para corredores argentinos</div>
+  </footer>
+
+  <script>
+    // Tipo toggle
+    function setTipo(tipo) {
+      document.getElementById('input-tipo').value = tipo;
+      document.getElementById('btn-calle').className = 'tipo-btn' + (tipo === 'calle' ? ' active-calle' : '');
+      document.getElementById('btn-trail').className = 'tipo-btn' + (tipo === 'trail' ? ' active-trail' : '');
+    }
+
+    // Form submit → mostrar success
+    document.getElementById('race-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          document.getElementById('form-content').style.display = 'none';
+          document.getElementById('success-box').style.display = 'block';
+        } else {
+          alert('Hubo un error al enviar. Intentá de nuevo.');
+        }
+      } catch {
+        alert('Hubo un error al enviar. Intentá de nuevo.');
+      }
+    });
+  </script>
+
+</body>
+</html>
