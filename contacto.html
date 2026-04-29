@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LOOPIA — Sumá tu carrera</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --color-bg:       #0A0A0A;
-      --color-bg-2:     #111111;
-      --color-card:     #ffffff;
-      --color-border:   rgba(0,0,0,0.08);
-      --color-accent:   #FF4D1C;
-      --color-trail:    #3B6D11;
-      --color-text:     #111111;
-      --color-muted:    #888888;
-      --font-display:   'Syne', sans-serif;
-      --font-body:      'DM Sans', sans-serif;
-      --radius:         12px;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html, body {
+    :root {
+      --color-bg: #0A0A0A;
+      --color-bg-2: #111111;
+      --color-card: #ffffff;
+      --color-border: rgba(0, 0, 0, 0.08);
+      --color-accent: #FF4D1C;
+      --color-trail: #3B6D11;
+      --color-text: #111111;
+      --color-muted: #888888;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 12px;
+    }
+
+    html,
+    body {
       font-family: var(--font-body);
       background: #f7f7f5;
       color: var(--color-text);
@@ -54,7 +64,7 @@
     .back-btn {
       font-family: var(--font-body);
       font-size: 12px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -62,14 +72,16 @@
       transition: color 0.15s;
     }
 
-    .back-btn:hover { color: #fff; }
+    .back-btn:hover {
+      color: #fff;
+    }
 
     /* ── HERO ── */
     .hero {
       background: var(--color-bg);
       padding: 40px 24px 48px;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .hero-tag {
@@ -79,8 +91,8 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--color-accent);
-      background: rgba(255,77,28,0.12);
-      border: 1px solid rgba(255,77,28,0.25);
+      background: rgba(255, 77, 28, 0.12);
+      border: 1px solid rgba(255, 77, 28, 0.25);
       padding: 4px 12px;
       border-radius: 99px;
       margin-bottom: 20px;
@@ -96,11 +108,13 @@
       margin-bottom: 16px;
     }
 
-    .hero h1 span { color: var(--color-accent); }
+    .hero h1 span {
+      color: var(--color-accent);
+    }
 
     .hero p {
       font-size: 15px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       max-width: 480px;
       margin: 0 auto;
       line-height: 1.6;
@@ -118,7 +132,7 @@
       border-radius: var(--radius);
       border: 0.5px solid var(--color-border);
       padding: 36px 32px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
     }
 
     /* ── FORM FIELDS ── */
@@ -196,17 +210,20 @@
       color: var(--color-muted);
     }
 
-    .tipo-btn:hover { border-color: #ccc; color: var(--color-text); }
+    .tipo-btn:hover {
+      border-color: #ccc;
+      color: var(--color-text);
+    }
 
     .tipo-btn.active-calle {
-      background: rgba(255,77,28,0.08);
+      background: rgba(255, 77, 28, 0.08);
       border-color: var(--color-accent);
       color: var(--color-accent);
       font-weight: 600;
     }
 
     .tipo-btn.active-trail {
-      background: rgba(59,109,17,0.08);
+      background: rgba(59, 109, 17, 0.08);
       border-color: var(--color-trail);
       color: var(--color-trail);
       font-weight: 600;
@@ -236,8 +253,8 @@
       user-select: none;
     }
 
-    .dist-check:checked + .dist-label {
-      background: rgba(255,77,28,0.08);
+    .dist-check:checked+.dist-label {
+      background: rgba(255, 77, 28, 0.08);
       border-color: var(--color-accent);
       color: var(--color-accent);
       font-weight: 600;
@@ -275,8 +292,13 @@
       letter-spacing: 0.3px;
     }
 
-    .submit-btn:hover { opacity: 0.88; }
-    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:hover {
+      opacity: 0.88;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
 
     /* ── SUCCESS STATE ── */
     .success-box {
@@ -285,7 +307,10 @@
       padding: 48px 24px;
     }
 
-    .success-box .icon { font-size: 48px; margin-bottom: 16px; }
+    .success-box .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
 
     .success-box h2 {
       font-family: var(--font-display);
@@ -323,21 +348,27 @@
       background: var(--color-bg);
       padding: 24px;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .footer-copy {
       font-size: 11px;
-      color: rgba(255,255,255,0.2);
+      color: rgba(255, 255, 255, 0.2);
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 480px) {
-      .form-card { padding: 24px 20px; }
-      .tipo-group { flex-direction: column; }
+      .form-card {
+        padding: 24px 20px;
+      }
+
+      .tipo-group {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- HEADER -->
@@ -352,9 +383,9 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-tag">🏃 Para organizadores</div>
-    <h1>Sumá tu <span>carrera</span><br>al calendario</h1>
-    <p>¿Organizás una carrera y no está en Loopia? Completá el formulario y la revisamos para agregarla.</p>
+    <div class="hero-tag">🏃 Para corredores y organizadores</div>
+    <h1>¿Conocés una <span>carrera</span><br>que falta?</h1>
+    <p>¿Organizás o conocés una carrera que no está en Loopia? Completá el formulario y la revisamos para agregarla.</p>
   </div>
 
   <!-- FORMULARIO -->
@@ -365,11 +396,7 @@
 
         <p class="section-title">Datos de la carrera</p>
 
-        <form
-          action="https://formspree.io/f/xzdopgrd"
-          method="POST"
-          id="race-form"
-        >
+        <form action="https://formspree.io/f/xzdopgrd" method="POST" id="race-form">
 
           <!-- Nombre -->
           <div class="field">
@@ -414,7 +441,8 @@
             <label>Tipo de carrera <span class="req">*</span></label>
             <div class="tipo-group">
               <button type="button" class="tipo-btn" id="btn-calle" onclick="setTipo('calle')">🏙️ Calle</button>
-              <button type="button" class="tipo-btn" id="btn-trail" onclick="setTipo('trail')">🏔️ Trail / Montaña</button>
+              <button type="button" class="tipo-btn" id="btn-trail" onclick="setTipo('trail')">🏔️ Trail /
+                Montaña</button>
             </div>
             <input type="hidden" name="tipo" id="input-tipo" required />
           </div>
@@ -423,15 +451,24 @@
           <div class="field">
             <label>Distancias disponibles <span class="req">*</span></label>
             <div class="dist-grid">
-              <input class="dist-check" type="checkbox" name="dist" value="3K" id="d3"><label class="dist-label" for="d3">3K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="5K" id="d5"><label class="dist-label" for="d5">5K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="10K" id="d10"><label class="dist-label" for="d10">10K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="15K" id="d15"><label class="dist-label" for="d15">15K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="21K" id="d21"><label class="dist-label" for="d21">21K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="42K" id="d42"><label class="dist-label" for="d42">42K</label>
-              <input class="dist-check" type="checkbox" name="dist" value="50K+" id="d50"><label class="dist-label" for="d50">50K+</label>
-              <input class="dist-check" type="checkbox" name="dist" value="100K+" id="d100"><label class="dist-label" for="d100">100K+</label>
-              <input class="dist-check" type="checkbox" name="dist" value="100MI" id="d100mi"><label class="dist-label" for="d100mi">100 Millas</label>
+              <input class="dist-check" type="checkbox" name="dist" value="3K" id="d3"><label class="dist-label"
+                for="d3">3K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="5K" id="d5"><label class="dist-label"
+                for="d5">5K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="10K" id="d10"><label class="dist-label"
+                for="d10">10K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="15K" id="d15"><label class="dist-label"
+                for="d15">15K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="21K" id="d21"><label class="dist-label"
+                for="d21">21K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="42K" id="d42"><label class="dist-label"
+                for="d42">42K</label>
+              <input class="dist-check" type="checkbox" name="dist" value="50K+" id="d50"><label class="dist-label"
+                for="d50">50K+</label>
+              <input class="dist-check" type="checkbox" name="dist" value="100K+" id="d100"><label class="dist-label"
+                for="d100">100K+</label>
+              <input class="dist-check" type="checkbox" name="dist" value="100MI" id="d100mi"><label class="dist-label"
+                for="d100mi">100 Millas</label>
             </div>
           </div>
 
@@ -494,7 +531,7 @@
     }
 
     // Form submit → mostrar success
-    document.getElementById('race-form').addEventListener('submit', async function(e) {
+    document.getElementById('race-form').addEventListener('submit', async function (e) {
       e.preventDefault();
       const form = e.target;
       const data = new FormData(form);
@@ -519,4 +556,5 @@
   </script>
 
 </body>
+
 </html>
